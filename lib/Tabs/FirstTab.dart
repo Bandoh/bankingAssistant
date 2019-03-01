@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:bankingassistant/logic/Bar.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +22,11 @@ class _FirstTabState extends State<FirstTab> {
 
     return Container(
         decoration: new BoxDecoration(
+
             // image: new DecorationImage(
             //     fit: BoxFit.contain, image: AssetImage('assets/calLogo.png')),
-            color: Colors.purple[200]),
+            // color: Colors.redAccent[100]
+            ),
         child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
@@ -69,6 +70,8 @@ class _FirstTabState extends State<FirstTab> {
     if (subtitle == "") {
       return new Container(
         child: new Card(
+                    elevation: 5.0,
+
             color: Colors.white.withOpacity(0.8),
             child: new ListTile(
               title: new Text(title,style: new TextStyle(
@@ -79,6 +82,7 @@ class _FirstTabState extends State<FirstTab> {
     } else {
       return new Container(
         child: new Card(
+          elevation: 5.0,
             color: Colors.white.withOpacity(0.8),
             child: new ListTile(
               title: new Text(title,style: new TextStyle(

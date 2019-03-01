@@ -14,7 +14,8 @@ class _ThirdTabState extends State<ThirdTab> {
         decoration: new BoxDecoration(
             // image: new DecorationImage(
             //     fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
-            color: Colors.purple[200]),
+            // color: Colors.purple[200]
+            ),
         child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
@@ -76,6 +77,7 @@ class _ThirdTabState extends State<ThirdTab> {
     if (subtitle == "") {
       return new Container(
         child: new Card(
+            elevation: 5.0,
             color: Colors.white.withOpacity(0.8),
             child: new ListTile(
               title: new Text(
@@ -87,6 +89,7 @@ class _ThirdTabState extends State<ThirdTab> {
     } else {
       return new Container(
         child: new Card(
+            elevation: 5.0,
             color: Colors.white.withOpacity(0.8),
             child: new ListTile(
               title: new Text(

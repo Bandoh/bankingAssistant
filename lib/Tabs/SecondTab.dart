@@ -14,7 +14,9 @@ class _SecondTabState extends State<SecondTab> {
         decoration: new BoxDecoration(
             // image: new DecorationImage(
             //     fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
-color: Colors.purple[200]),        child: new ListView(
+            // color: Colors.purple[200]
+            ),
+        child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
             new Container(
@@ -61,13 +63,14 @@ color: Colors.purple[200]),        child: new ListView(
               ),
             ),
             showInfo("Student Account", ""),
-            showInfo('Current Account', "GHS10.00 monthly charge\nGHS5 ATM monthly charge"),
+            showInfo('Current Account',
+                "GHS10.00 monthly charge\nGHS5 ATM monthly charge"),
             showInfo('Savings Account', "3% interest"),
             showInfo("Cooperate Account", ""),
             showInfo("Joint Account", ""),
             showInfo("Minor Account", ""),
             showInfo('CalBank Student Account', ""),
-             showInfo('Treasury bill', "14.6285%")
+            showInfo('Treasury bill', "14.6285%")
           ],
         ));
   }
@@ -76,21 +79,25 @@ color: Colors.purple[200]),        child: new ListView(
     if (subtitle == "") {
       return new Container(
         child: new Card(
+            elevation: 5.0,
             color: Colors.white.withOpacity(0.8),
             child: new ListTile(
-              title: new Text(title,style: new TextStyle(
-                fontWeight: FontWeight.bold
-              ),),
+              title: new Text(
+                title,
+                style: new TextStyle(fontWeight: FontWeight.bold),
+              ),
             )),
       );
     } else {
       return new Container(
         child: new Card(
+            elevation: 5.0,
             color: Colors.white.withOpacity(0.8),
             child: new ListTile(
-              title: new Text(title,style: new TextStyle(
-                fontWeight: FontWeight.bold
-              ),),
+              title: new Text(
+                title,
+                style: new TextStyle(fontWeight: FontWeight.bold),
+              ),
               subtitle: new Text(subtitle),
             )),
       );

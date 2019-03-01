@@ -46,10 +46,4 @@ class _BarchartState extends State<Barchart> {
     ];
     _chartData.assignDataRowsDefaultColors();
   }
-
-  void _chartStateChanger() {
-    setState(() {
-      defineOptionsAndData();
-    });
-  }
 }
