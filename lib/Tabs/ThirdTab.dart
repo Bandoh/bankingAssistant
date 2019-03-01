@@ -14,7 +14,7 @@ class _ThirdTabState extends State<ThirdTab> {
         decoration: new BoxDecoration(
             // image: new DecorationImage(
             //     fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
-            color: Colors.red[100]),
+            color: Colors.purple[200]),
         child: new ListView(
           shrinkWrap: true,
           children: <Widget>[

@@ -12,10 +12,9 @@ class _SecondTabState extends State<SecondTab> {
   Widget build(BuildContext context) {
     return Container(
         decoration: new BoxDecoration(
-            image: new DecorationImage(
-                fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
-            color: Colors.red[200]),
-        child: new ListView(
+            // image: new DecorationImage(
+            //     fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
+color: Colors.purple[200]),        child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
             new Container(

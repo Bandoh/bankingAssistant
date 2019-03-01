@@ -23,9 +23,9 @@ class _FirstTabState extends State<FirstTab> {
 
     return Container(
         decoration: new BoxDecoration(
-            image: new DecorationImage(
-                fit: BoxFit.contain, image: AssetImage('assets/calLogo.png')),
-            color: Colors.red[200]),
+            // image: new DecorationImage(
+            //     fit: BoxFit.contain, image: AssetImage('assets/calLogo.png')),
+            color: Colors.purple[200]),
         child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
