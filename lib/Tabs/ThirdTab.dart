@@ -12,9 +12,9 @@ class _ThirdTabState extends State<ThirdTab> {
   Widget build(BuildContext context) {
     return Container(
         decoration: new BoxDecoration(
-            image: new DecorationImage(
-                fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
-            color: Colors.red[200]),
+            // image: new DecorationImage(
+            //     fit: BoxFit.contain, image: AssetImage('assets/ecoLogo.png')),
+            color: Colors.red[100]),
         child: new ListView(
           shrinkWrap: true,
           children: <Widget>[
