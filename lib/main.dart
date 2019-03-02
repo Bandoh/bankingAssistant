@@ -1,3 +1,4 @@
+import 'package:bankingassistant/db/MongoDB.dart';
 import 'package:bankingassistant/screens/BanksHome.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -16,17 +17,16 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.redAccent,
         textTheme: TextTheme(
             body1: TextStyle(
-                color: Colors.white,
+                color: Colors.cyan,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 5.0,
                 shadows: [new Shadow(color: Colors.black)]),
-                body2: TextStyle(
-                  fontWeight: FontWeight.w700,
-                color: Colors.red,
-                fontSize: 18.0,
-               )
-                ),
+            body2: TextStyle(
+              fontWeight: FontWeight.w700,
+              color: Colors.red,
+              fontSize: 18.0,
+            )),
         primarySwatch: Colors.cyan,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -52,22 +52,24 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController username = new TextEditingController();
   TextEditingController email = new TextEditingController();
   TextEditingController password = new TextEditingController();
-  MySQL mySQL = new MySQL(
-      // host: '192.168.43.227', //for real devices
-      // host: '192.168.122.1', //for virtual devices
-      host: '127.0.0.1',
-      port: 3306,
-      dataBaseName: 'banking',
-      password: 'donttry',
-      username: 'root');
+  // MySQL mySQL = new MySQL(
+  //     // host: '192.168.43.227', //for real devices
+  //     // host: '192.168.122.1', //for virtual devices
+  //     host: 'localhost',
+  //     port: 3306,
+  //     dataBaseName: 'banking',
+  //     password: '',
+  //     username: 'root');
+  MongoDB mongoDB = new MongoDB();
   void database() async {
-    await mySQL.connect();
-    mySQL.tableHandler();
+    // await mySQL.connect();
+    // mySQL.tableHandler();
   }
 
   @override
   void initState() {
     database();
+    mongoDB.initMongo();
     super.initState();
   }
 
@@ -140,7 +142,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           autocorrect: true,
                           controller: username,
                           decoration: new InputDecoration(
-                            icon: Icon(Icons.account_circle,color: Colors.redAccent,),
+                            icon: Icon(
+                              Icons.account_circle,
+                              color: Colors.redAccent,
+                            ),
                             labelText: 'Username',
                             labelStyle: Theme.of(context).textTheme.body2,
                           ),
@@ -153,8 +158,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           obscureText: true,
                           controller: password,
                           decoration: new InputDecoration(
-
-                            icon: Icon(Icons.lock,color: Colors.redAccent),
+                            icon: Icon(Icons.lock, color: Colors.redAccent),
                             labelText: 'password',
                             labelStyle: Theme.of(context).textTheme.body2,
                           ),
@@ -167,16 +171,26 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 60.0,
                         width: double.infinity,
                         child: new RaisedButton(
-                          color: Colors.redAccent,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          onPressed: ()async {
+                          color: Colors.white,
+                          // shape: new RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(30.0)),
+                          onPressed: () async {
                             // await mySQL.getUser(username.text, password.text);
-                            Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                              builder: ((c){
+                            // Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                            //   builder: ((c){
+                            //     return new BanksHome();
+                            //   })
+                            // ));
+                            await mongoDB.initMongo();
+                            await mongoDB.createCollection();
+                            bool checker = await mongoDB.checkCred(
+                                username.text, password.text);
+                            if (checker) {
+                              Navigator.of(context).pushReplacement(
+                                  new MaterialPageRoute(builder: ((c) {
                                 return new BanksHome();
-                              })
-                            ));
+                              })));
+                            }
                           },
                           child: new Text(
                             'Login',
@@ -192,9 +206,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: double.infinity,
                         child: new OutlineButton(
                           color: Colors.white,
-                          shape: new RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          onPressed: () {
+                          // shape: new RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(30.0)),
+                          onPressed: () async {
                             setState(() {
                               hasAccount = false;
                             });
@@ -221,8 +235,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget secondChild() {
-   return new Container(
-     height: MediaQuery.of(context).size.height,
+    return new Container(
+      height: MediaQuery.of(context).size.height,
       decoration: new BoxDecoration(
         image: new DecorationImage(
           colorFilter: ColorFilter.mode(
@@ -270,7 +284,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         autocorrect: true,
                         controller: username,
                         decoration: new InputDecoration(
-                          icon: Icon(Icons.account_circle,color: Colors.redAccent,),
+                          icon: Icon(
+                            Icons.account_circle,
+                            color: Colors.redAccent,
+                          ),
                           labelText: 'Username',
                           labelStyle: Theme.of(context).textTheme.body2,
                         ),
@@ -283,7 +300,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         obscureText: true,
                         controller: password,
                         decoration: new InputDecoration(
-                          icon: Icon(Icons.lock,color: Colors.redAccent,),
+                          icon: Icon(
+                            Icons.lock,
+                            color: Colors.redAccent,
+                          ),
                           labelText: 'password',
                           labelStyle: Theme.of(context).textTheme.body2,
                         ),
@@ -295,7 +315,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         autocorrect: true,
                         controller: email,
                         decoration: new InputDecoration(
-                          icon: Icon(Icons.email,color: Colors.redAccent,),
+                          icon: Icon(
+                            Icons.email,
+                            color: Colors.redAccent,
+                          ),
                           labelText: 'email',
                           labelStyle: Theme.of(context).textTheme.body2,
                         ),
@@ -315,8 +338,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         shape: new RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         onPressed: () async {
-                          await mySQL.registerUser(
+                          // await mySQL.registerUser(
+                          //     username.text, password.text, email.text);
+                          await mongoDB.initMongo();
+                          await mongoDB.createCollection();
+                          double a = await mongoDB.insertCollection(
                               username.text, password.text, email.text);
+                          if (a == 1.0) {
+                            Navigator.of(context).pushReplacement(
+                                new MaterialPageRoute(builder: ((c) {
+                              return new BanksHome();
+                            })));
+                          }
                         },
                         child: new Text(
                           'Register',
